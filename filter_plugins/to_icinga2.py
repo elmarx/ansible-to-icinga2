@@ -42,7 +42,7 @@ def value2string(key, value):
 
 class FilterModule(object):
     @staticmethod
-    def filter():
+    def filters():
         return {
             'to_icinga2': to_icinga2_expression
         }

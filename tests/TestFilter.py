@@ -43,6 +43,35 @@ class ToIcinga2ExpressionTest(unittest.TestCase):
             "disks": {"disk": {}}
         }))
 
+    def test_multiple_dicts(self):
+        expected = """\
+        vars.http_vhosts["Syncthing https redirect"] = {
+            http_port = 8384
+            http_expect = 302
+        }
+        vars.http_vhosts["Syncthing"] = {
+            http_port = 8384
+            http_expect = 401
+            http_ssl = 1
+        }
+        """
+
+        configuration = {
+            "http_vhosts": {
+                "Syncthing https redirect": {
+                    "http_port": 8384,
+                    "http_expect": 302
+                },
+                "Syncthing": {
+                    "http_port": 8384,
+                    "http_ssl": 1,
+                    "http_expect": 401
+                }
+            }
+        }
+
+        self.assertEquals(self._p(expected), to_icinga2.to_icinga2_expression(configuration))
+
     def test_nested_dict(self):
         expected = dedent("""\
         vars.http_vhosts["Default page"] = {

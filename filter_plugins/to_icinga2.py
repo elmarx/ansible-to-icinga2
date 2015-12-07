@@ -1,5 +1,5 @@
 def to_icinga2_expression(a):
-    return "\n".join(['vars.' + var2string(k, v) for (k, v) in a.items()])
+    return "\n".join([var2string(k, v) for (k, v) in a.items()])
 
 
 def var2string(key, value):
@@ -12,10 +12,10 @@ def var2string(key, value):
     """
     # simple string values like var.os = "Linux"
     if type(value) is str:
-        return '%s = "%s"' % (key, value)
+        return 'vars.%s = "%s"' % (key, value)
     elif type(value) is dict:
         return "\n".join(
-            ['%s["%s"] = {\n%s\n}' % (key, entry, var_keys2string(values)) for entry, values in value.items()]
+            ['vars.%s["%s"] = {\n%s\n}' % (key, entry, var_keys2string(values)) for entry, values in value.items()]
         )
     else:
         raise TypeError("unknown type %s, expecting type dict or str" % type(value))

@@ -33,6 +33,8 @@ def var_keys2string(values):
 def value2string(key, value):
     if type(value) is str:
         return '%s = "%s"' % (key, value)
+    elif type(value) is int:
+        return '%s = %s' % (key, value)
     elif type(value) is list:
         print(['"%s"' % str(i) for i in value])
         return "%s = [ %s ]" % (key, ", ".join(['"%s"' % str(i) for i in value]))

@@ -47,17 +47,19 @@ class ToIcinga2ExpressionTest(unittest.TestCase):
         expected = dedent("""\
         vars.http_vhosts["Default page"] = {
             http_string = "the string"
+            http_port = 8384
             http_uri = "/"
         }""")
-
         configuration = {
             "http_vhosts": {
                 "Default page": {
                     "http_string": "the string",
-                    "http_uri": "/"
+                    "http_uri": "/",
+                    "http_port": 8384
                 }
             }
         }
+
 
         self.assertEqual(expected, to_icinga2.to_icinga2_expression(configuration))
 

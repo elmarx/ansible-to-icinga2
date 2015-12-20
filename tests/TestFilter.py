@@ -11,12 +11,13 @@ class ToIcinga2ExpressionTest(unittest.TestCase):
     def test_string_value(self):
         self.assertEqual("vars.os = \"Linux\"", to_icinga2.to_icinga2_expression(dict(os="Linux")))
 
-    def test_multiple_string_values(self):
+    def test_multiple_values(self):
         expected = """
+        vars.smtp = 1
         vars.os_family = "RedHat"
         vars.os = "Linux"
         """
-        self.assertEqual(self._p(expected), to_icinga2.to_icinga2_expression(dict(os="Linux", os_family="RedHat")))
+        self.assertEqual(self._p(expected), to_icinga2.to_icinga2_expression(dict(os="Linux", os_family="RedHat", smtp=1)))
 
     def test_with_list(self):
         expected = """

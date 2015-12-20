@@ -13,6 +13,8 @@ def var2string(key, value):
     # simple string values like var.os = "Linux"
     if type(value) is str:
         return 'vars.%s = "%s"' % (key, value)
+    if type(value) is int:
+        return 'vars.%s = %d' % (key, value)
     elif type(value) is dict:
         return "\n".join(
             ['vars.%s["%s"] = {\n%s\n}' % (key, entry, var_keys2string(values)) for entry, values in value.items()]
@@ -48,5 +50,3 @@ class FilterModule(object):
         return {
             'to_icinga2': to_icinga2_expression
         }
-
-

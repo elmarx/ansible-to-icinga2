@@ -15,12 +15,14 @@ def var2string(key, value):
         return 'vars.%s = "%s"' % (key, value)
     if type(value) is int:
         return 'vars.%s = %d' % (key, value)
+    if type(value) is list:
+        return 'vars.%s = [ "%s" ]' % (key, '", "'.join(value))
     elif type(value) is dict:
         return "\n".join(
             ['vars.%s["%s"] = {\n%s\n}' % (key, entry, var_keys2string(values)) for entry, values in value.items()]
         )
     else:
-        raise TypeError("unknown type %s, expecting type dict or str" % type(value))
+        raise TypeError("unknown type %s, expecting type dict, list, str or int" % type(value))
 
 
 def var_keys2string(values):
